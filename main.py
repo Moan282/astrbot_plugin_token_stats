@@ -1,14 +1,15 @@
 import json
 import os
-from astrbot.api.event import filter, AstrMessageEvent
+from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
+from astrbot.api.all import event_message_type, EventMessageType
 
 @register(
     "astrbot_plugin_token_stats",
     "Moan282",
     "显示每次请求的Token消耗详情（输入/输出/缓存命中），支持开关",
-    "1.1.0",
+    "1.1.1",
     "https://github.com/Moan282/astrbot_plugin_token_stats"
 )
 class TokenStatsPlugin(Star):
@@ -19,7 +20,6 @@ class TokenStatsPlugin(Star):
         logger.info(f"✅ Token统计插件已加载，当前状态：{'开启' if self.enabled else '关闭'}")
 
     def _load_config(self):
-        """加载配置文件，默认开启"""
         try:
             with open(self.config_path, 'r', encoding='utf-8') as f:
                 config = json.load(f)
@@ -31,7 +31,6 @@ class TokenStatsPlugin(Star):
             return True
 
     def _save_config(self):
-        """保存配置"""
         try:
             with open(self.config_path, 'w', encoding='utf-8') as f:
                 json.dump({'enabled': self.enabled}, f, ensure_ascii=False, indent=2)
@@ -42,7 +41,6 @@ class TokenStatsPlugin(Star):
 
     @filter.command("/token显示 开")
     async def turn_on(self, event: AstrMessageEvent):
-        """开启Token统计显示"""
         if self.enabled:
             yield event.make_result().message("⚙️ Token统计已处于开启状态")
             return
@@ -54,7 +52,6 @@ class TokenStatsPlugin(Star):
 
     @filter.command("/token显示 关")
     async def turn_off(self, event: AstrMessageEvent):
-        """关闭Token统计显示"""
         if not self.enabled:
             yield event.make_result().message("⚙️ Token统计已处于关闭状态")
             return
@@ -64,7 +61,7 @@ class TokenStatsPlugin(Star):
         else:
             yield event.make_result().message("❌ 关闭失败，请检查日志")
 
-    @filter.on_message()
+    @event_message_type(EventMessageType.ALL)
     async def on_message(self, event: AstrMessageEvent):
         # 如果统计功能关闭，直接跳过
         if not self.enabled:
