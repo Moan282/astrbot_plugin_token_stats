@@ -1,0 +1,2 @@
+# astrbot_plugin_token_stats
+输出token消耗
