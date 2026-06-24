@@ -5,6 +5,6 @@ help: |
   /token显示 开   - 开启Token统计显示
   /token显示 关   - 关闭Token统计显示
   开启后，每次机器人回复后会自动发送Token消耗明细。
-version: v1.1.0
+version: v1.1.1
 author: Moan282
 repo: https://github.com/Moan282/astrbot_plugin_token_stats
