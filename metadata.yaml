@@ -1,0 +1,6 @@
+name: astrbot_plugin_token_stats
+desc: 显示每次请求的Token消耗详情（输入/输出/缓存命中）
+help: 无需指令，自动在每次回复后显示Token统计
+version: v1.0.0
+author: Moan282
+repo: https://github.com/Moan282/astrbot_plugin_token_stats
