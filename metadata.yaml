@@ -1,10 +1,10 @@
-name: astrbot_plugin_token_stats
-desc: 显示每次请求的Token消耗详情（输入/输出/缓存命中），支持开关控制
+name: TokenStats
+desc: 显示Token消耗详情（含缓存命中），支持开关控制
 help: |
   指令：
   /token显示 开   - 开启Token统计显示
   /token显示 关   - 关闭Token统计显示
-  开启后，每次机器人回复后会自动发送Token消耗明细。
-version: v1.1.1
+  开启后，每次机器人回复后会自动追加Token消耗明细（含缓存命中情况）。
+version: v1.3.0
 author: Moan282
 repo: https://github.com/Moan282/astrbot_plugin_token_stats
